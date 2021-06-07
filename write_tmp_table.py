@@ -17,12 +17,11 @@ def write_tmp_table(data, name):
             VALUES
             ('%s');'''
     try:
-        cursor.executemany(q, data)
+        cursor.execute(q, data)
+        db.commit()
     except MySQLdb.Error as error:
         print(error)
         # sys.exit("Error:Failed writing new data to db")
-    cursor.execute()
-    db.commit()
     return True
 
 
