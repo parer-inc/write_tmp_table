@@ -13,15 +13,14 @@ def write_tmp_table(data, name):
         # log that name was wrong
         return False
     cursor, db = get_cursor()
-    q = f'''INSERT INTO  {name}
-            (data)
+    q = f'''INSERT INTO  `{name}`
             VALUES
-            (%s);'''
+            ('%s');'''
     try:
         cursor.executemany(q, data)
     except MySQLdb.Error as error:
         print(error)
-        sys.exit("Error:Failed writing new data to db")
+        # sys.exit("Error:Failed writing new data to db")
     cursor.execute()
     db.commit()
     return True
