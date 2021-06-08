@@ -9,10 +9,13 @@ from methods.connection import get_redis, get_cursor
 
 def write_tmp_table(data, name):
     """Writes data into tmp table"""
+    cursor, db = get_cursor()
+    if not cursor or not db:
+        # log that failed getting cursor
+        return False
     if "tmp" not in name:
         # log that name was wrong
         return False
-    cursor, db = get_cursor()
     q = f'''INSERT INTO  `{name}`
             VALUES
             ('%s');'''
@@ -21,6 +24,8 @@ def write_tmp_table(data, name):
         db.commit()
     except MySQLdb.Error as error:
         print(error)
+        # log that failed writtin into db
+        return False
         # sys.exit("Error:Failed writing new data to db")
     return True
 
