@@ -1,4 +1,4 @@
-"""This service allows to write new channels to db"""
+"""This service allows to write in tmp tables"""
 import os
 import sys
 import time
@@ -6,6 +6,7 @@ import MySQLdb
 from rq import Worker, Queue, Connection
 from methods.connection import get_redis, get_cursor
 
+r = get_redis()
 
 def write_tmp_table(data, name):
     """Writes data into tmp table"""
@@ -31,8 +32,6 @@ def write_tmp_table(data, name):
 
 
 if __name__ == '__main__':
-    time.sleep(5)
-    r = get_redis()
     q = Queue('write_tmp_table', connection=r)
     with Connection(r):
         worker = Worker([q], connection=r,  name='write_tmp_table')
