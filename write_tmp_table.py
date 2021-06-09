@@ -18,10 +18,11 @@ def write_tmp_table(data, name):
         # log that name was wrong
         return False
     q = f'''INSERT INTO  `{name}`
+            (data)
             VALUES
-            ('%s');'''
+            ('{data}');'''
     try:
-        cursor.execute(q, data)
+        cursor.execute(q)
         db.commit()
     except MySQLdb.Error as error:
         print(error)
