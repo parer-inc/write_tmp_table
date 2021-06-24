@@ -17,7 +17,7 @@ def write_tmp_table(data, name):
     if "tmp" not in name:
         # log that name was wrong
         return False
-    q = f'''INSERT INTO  `{name}`
+    q = f'''REPLACE INTO  `{name}`
             (data)
             VALUES
             ('{data}');'''
@@ -27,7 +27,6 @@ def write_tmp_table(data, name):
     except MySQLdb.Error as error:
         print(error)
         # log that failed writtin into db
-        return False
         # sys.exit("Error:Failed writing new data to db")
     return True
 
