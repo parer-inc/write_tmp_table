@@ -8,6 +8,7 @@ from methods.connection import get_redis, get_cursor
 
 r = get_redis()
 
+
 def write_tmp_table(data, name):
     """Writes data into tmp table"""
     cursor, db = get_cursor()
